@@ -52,17 +52,23 @@ int _tmain(int argc, _TCHAR* argv[])
 	/*Port number
 	htons函数，host to network short，把主机字节顺序转换为网络字节顺序*/
 	addrServer.sin_port=htons(6000);
-	int len=sizeof(SOCKADDR);
-	bind(sockSever,(SOCKADDR*)&addrServer,len);
+
+	bind(sockSever,(SOCKADDR*)&addrServer,sizeof(SOCKADDR));
 	listen(sockSever,5);
+
 	SOCKADDR_IN addrClient;
+	int len=sizeof(SOCKADDR_IN);
 	while (true)
 	{
 		SOCKET client=accept(sockSever,(SOCKADDR*)&addrClient,&len);
 		SocketClient *sock=new SocketClient(client);
 		sock->ReceiveData();
 	}
+
+	//WSACleanup函数用来解除与Socket库的绑定并且释放Socket库所占用的系统资源
+	WSACleanup();
 	system("PAUSE");
+
 	return 0;
 }
 

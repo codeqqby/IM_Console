@@ -34,10 +34,9 @@ DWORD WINAPI Receiving(LPVOID lpParamter)
 	{
 		//closesocket函数用来关闭套接字，执行成功返回0，否则返回SOCKET_ERROR
 		closesocket(sock->client);
-
-		//WSACleanup函数用来解除与Socket库的绑定并且释放Socket库所占用的系统资源
-		WSACleanup();
 	}
+	cout<<"exit:"<<sock->client<<endl;
+
 	return 0;
 }
 
