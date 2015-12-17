@@ -42,11 +42,19 @@ int _tmain(int argc, _TCHAR* argv[])
 		cin>>buf;
 		send(sockClient,buf,strlen(buf),0);
 		len=recv(sockClient,buf,BUF_SIZE,0);
+		if(len==-1)
+		{
+			break;
+		}
 		string recvStr=string(buf,len);
 		cout<<recvStr<<endl;
 
 		Sleep(2000);
 	}
+
+	closesocket(sockClient);
+	WSACleanup();
+
 	system("PAUSE");
 	return 0;
 }

@@ -30,12 +30,7 @@ DWORD WINAPI Receiving(LPVOID lpParamter)
 		strcpy_s(buf,sendStr.c_str());
 		send(sock->client,buf,strlen(buf),0);
 	}
-	if(sock->client!=NULL)
-	{
-		//closesocket函数用来关闭套接字，执行成功返回0，否则返回SOCKET_ERROR
-		closesocket(sock->client);
-	}
-	cout<<"exit:"<<sock->client<<endl;
+	sock->CloseSocket();
 
 	return 0;
 }
@@ -44,12 +39,14 @@ void SocketClient::CloseSocket()
 {
 	if(this->client!=NULL)
 	{
+		//closesocket函数用来关闭套接字，执行成功返回0，否则返回SOCKET_ERROR
 		closesocket(this->client);
-		WSACleanup();
+		cout<<"exit:"<<this->client<<endl;
+		delete this;
 	}
 }
 
 SocketClient::~SocketClient(void)
 {
-	CloseSocket();
+	cout<<"~SocketClient"<<endl;
 }

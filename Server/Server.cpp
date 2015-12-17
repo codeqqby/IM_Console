@@ -4,6 +4,12 @@
 #include "stdafx.h"
 #include "SocketClient.h"
 
+shared_ptr<SocketClient> GetClientInstance(SOCKET client)
+{
+    shared_ptr<SocketClient> sock (new SocketClient (client));
+    return sock;
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	//定义Socket版本，其中高位字节指明副版本、低位字节指明主版本，此处为2.1
@@ -61,6 +67,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	while (true)
 	{
 		SOCKET client=accept(sockSever,(SOCKADDR*)&addrClient,&len);
+
 		SocketClient *sock=new SocketClient(client);
 		sock->ReceiveData();
 	}
