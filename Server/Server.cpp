@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "SocketClient.h"
+#include "conf.h"
 
 shared_ptr<SocketClient> GetClientInstance(SOCKET client)
 {
@@ -12,6 +13,16 @@ shared_ptr<SocketClient> GetClientInstance(SOCKET client)
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	char ip[MAX_PATH];
+	conf ini;
+	ini.Init(ip);
+	if(strlen(ini.ip)==0 || ini.port==0)
+	{
+		cout<<"get ini failed"<<endl;
+		system("PAUSE");
+		return 0;
+	}
+
 	//定义Socket版本，其中高位字节指明副版本、低位字节指明主版本，此处为2.1
 	WORD wVersionRequested=MAKEWORD(2,1); 
 
@@ -53,11 +64,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	/*Internet address
 	htonl函数，host to network long，把主机字节顺序转换为网络字节顺序；
 	网络字节顺序，指一个数在内存中存储的时候，高位字节存放于低地址单元，低位字节存放在高地址单元中*/
-	addrServer.sin_addr.S_un.S_addr=htonl(INADDR_ANY);
+	addrServer.sin_addr.S_un.S_addr=inet_addr(ini.ip);
 
 	/*Port number
 	htons函数，host to network short，把主机字节顺序转换为网络字节顺序*/
-	addrServer.sin_port=htons(6000);
+	addrServer.sin_port=htons(ini.port);
 
 	bind(sockSever,(SOCKADDR*)&addrServer,sizeof(SOCKADDR));
 	listen(sockSever,5);

@@ -6,11 +6,22 @@
 #include <Windows.h>
 #include <iostream>
 #include <string>
+#include "conf.h"
 #pragma comment(lib,"ws2_32.lib")
 using namespace std;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	char ip[MAX_PATH];
+	conf ini;
+	ini.Init(ip);
+	if(strlen(ini.ip)==0 || ini.port==0)
+	{
+		cout<<"get ini failed"<<endl;
+		system("PAUSE");
+		return 0;
+	}
+
 	WORD wVersionRequested=MAKEWORD(2,1);
 	WSADATA wsaData; 
 	int err;
@@ -25,9 +36,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	SOCKET sockClient=socket(AF_INET,SOCK_STREAM,0);
 	SOCKADDR_IN addrServer;
-	addrServer.sin_addr.S_un.S_addr=inet_addr("127.0.0.1");
+	addrServer.sin_addr.S_un.S_addr=inet_addr(ini.ip);
 	addrServer.sin_family=AF_INET;
-	addrServer.sin_port=htons(6000);
+	addrServer.sin_port=htons(ini.port);
 	int len=sizeof(SOCKADDR);
 	len=connect(sockClient,(SOCKADDR*)&addrServer,len);
 	if(len!=0)

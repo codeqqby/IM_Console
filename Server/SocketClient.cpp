@@ -3,6 +3,7 @@
 
 SocketClient::SocketClient(SOCKET sock):client(sock)
 {
+	cout<<"connect:"<<this->client<<endl;
 }
 
 void SocketClient::ReceiveData()

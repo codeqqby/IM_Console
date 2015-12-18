@@ -24,10 +24,7 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SocketClient.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="conf.h">
+    <ClInclude Include="ini.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,13 +32,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Server.cpp">
+    <ClCompile Include="dllmain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SocketClient.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="conf.cpp">
+    <ClCompile Include="ini.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
